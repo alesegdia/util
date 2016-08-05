@@ -2,6 +2,7 @@
 
 use DateTime;
 use File::Basename;
+use Term::ANSIColor;
 use Cwd 'abs_path';
 
 my $numargs = $#ARGV + 1;
@@ -34,7 +35,9 @@ sub check_backups {
 	my $subfolder = @_[0];
 	my $frequency = @_[1];
 
+	print color("bold blue");
 	print "Checking $target_folder/$subfolder\n";
+	print color("reset");
 
 	my @files = <"$target_folder/$subfolder/$source_basename\.backup\.*">;
 	my $newest_date = new DateTime(
@@ -61,14 +64,27 @@ sub check_backups {
 	my $cmp = DateTime->compare( $next_backup_date, DateTime->today() );
 	if( $cmp < 0 )
 	{
+		print color("bold red");
 		print("Needs backup\n");
+		print color("reset");
+
+		print color("blue");
+		print( ">> Starting to execute rsync script >>>>>>>>>>\n" );
+		print color("reset");
+
 		my $abspath = dirname(abs_path($0));
 		my $command = "$abspath/sync.sh $source_folder $target_folder/$subfolder/";
+		print "$command\n";
 		system($command);
+		print color("blue");
+		print( "<< Finished rsync script <<<<<<<<<<<<<<<<<<<<<\n" );
+		print color("reset");
 	}
 	else
 	{
+		print color("bold green");
 		print( "No backup needed\n" );
+		print color("reset");
 	}
 
 	print "\n";
