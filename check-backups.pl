@@ -2,6 +2,7 @@
 
 use DateTime;
 use File::Basename;
+use Cwd 'abs_path';
 
 my $numargs = $#ARGV + 1;
 
@@ -61,6 +62,9 @@ sub check_backups {
 	if( $cmp < 0 )
 	{
 		print("Needs backup\n");
+		my $abspath = dirname(abs_path($0));
+		my $command = "$abspath/sync.sh $source_folder $target_folder/$subfolder/";
+		system($command);
 	}
 	else
 	{
