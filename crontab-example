@@ -1,0 +1,1 @@
+37 * 	* * * 	root 	/home/protoskel/sync/projects/rsync-nas/check-backups.pl /home/protoskel/sync/ /mnt/nas-backups/ >> /opt/rsync-nas.log
