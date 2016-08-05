@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 
 use DateTime;
+use File::Basename;
 
 my $numargs = $#ARGV + 1;
 
@@ -12,6 +13,7 @@ if( $numargs != 2 )
 
 my $source_folder = $ARGV[0];
 my $target_folder = $ARGV[1];
+my $source_basename = basename($source_folder);
 
 if( false == (-d "$source_folder") ) {
 	print "Source folder is not a directory\n";
@@ -33,7 +35,7 @@ sub check_backups {
 
 	print "Checking $target_folder/$subfolder\n";
 
-	my @files = <$target_folder/$subfolder/*>;
+	my @files = <"$target_folder/$subfolder/$source_basename\.backup\.*">;
 	my $newest_date = new DateTime(
 		year 	=> 1,
 		month 	=> 1,
