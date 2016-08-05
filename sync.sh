@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if [ "$#" -ne 2 ]; then
+	echo "Invalid number of arguments"
+	exit 1
+fi
+
 SOURCE_FOLDER=$1/
 DEST_FOLDER=$2
 DATE=`date +%d.%m.%Y`
