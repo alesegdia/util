@@ -30,6 +30,9 @@ sub check_backups {
 	}
 	my $subfolder = @_[0];
 	my $frequency = @_[1];
+
+	print "Checking $target_folder/$subfolder\n";
+
 	my @files = <$target_folder/$subfolder/*>;
 	my $newest_date = new DateTime(
 		year 	=> 1,
@@ -61,20 +64,13 @@ sub check_backups {
 	{
 		print( "No backup needed\n" );
 	}
+
+	print "\n";
 }
 
 print "source: $source_folder\n";
 print "target: $target_folder\n";
-print "\n";
 
-print "Checking daily\n";
 check_backups( "daily", 1 );
-print "\n";
-
-print "Checking weekly\n";
 check_backups( "weekly", 7 );
-print "\n";
-
-print "Checking monthly\n";
 check_backups( "monthly", 30 );
-print "\n";
