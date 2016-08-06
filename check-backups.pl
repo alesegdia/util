@@ -5,6 +5,12 @@ use File::Basename;
 use Term::ANSIColor;
 use Cwd 'abs_path';
 
+print color("bold");
+print "**********************\n";
+print DateTime->now();
+print "\n";
+print color("reset");
+
 my $numargs = $#ARGV + 1;
 
 if( $numargs != 2 )
@@ -62,7 +68,7 @@ sub check_backups {
 
 	my $next_backup_date = $newest_date->add( days => $frequency );
 	my $cmp = DateTime->compare( $next_backup_date, DateTime->today() );
-	if( $cmp < 0 )
+	if( $cmp <= 0 )
 	{
 		print color("bold red");
 		print("Needs backup\n");
