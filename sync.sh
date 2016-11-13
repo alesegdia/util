@@ -16,6 +16,6 @@ mkdir -p $DEST_PATH
 if [ -d "$SOURCE_FOLDER" ]; then
 	echo source: $SOURCE_FOLDER
 	# rsync --progress -a --delete $SOURCE_FOLDER/ $DEST_PATH/
-	rsync -a --delete $SOURCE_FOLDER/ $DEST_PATH/
+	rsync -akL --delete $SOURCE_FOLDER/ $DEST_PATH/
 fi
 
