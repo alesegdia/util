@@ -1,0 +1,1 @@
+37 * 	* * * 	root 	/home/<USER>/sync/projects/rsync-nas/check-backups.pl /home/<USER>/sync/ /mnt/nas-backups/ >> /opt/rsync-nas.log
