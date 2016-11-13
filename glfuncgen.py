@@ -1,3 +1,5 @@
+# Generates OpenGL function names from a file
+
 import sys
 import re
 
