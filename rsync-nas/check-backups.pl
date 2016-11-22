@@ -21,8 +21,9 @@ my $target_folder = $ARGV[1];
 my $source_basename = basename($source_folder);
 
 # TODO: add flag to command line to perform this check, instead of always doing it
-my $li = `df $target_folder | sed -n '2p'`;
-if( not ($li =~ /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/) )
+my $disk_type = `df -P -T $target_folder | tail -n +2 | awk '{print \$2}'`;
+$disk_type =~ s/^\s+|\s+$//g;
+if( $disk_type ne "nfs" )
 {
 	print("Source folder is not mounted on network.\n");
 	exit(1);
