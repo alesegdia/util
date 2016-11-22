@@ -5,23 +5,34 @@ use File::Basename;
 use Term::ANSIColor;
 use Cwd 'abs_path';
 
+my $numargs = $#ARGV + 1;
+
+if( $numargs != 2 )
+{
+	print "\n";
+	print "Invalid number of arguments\n";
+	print "\tUsage: ./check-backups.pl <source-dir> <target-dir>\n\n";
+	exit -1;
+}
+
+
+my $source_folder = $ARGV[0];
+my $target_folder = $ARGV[1];
+my $source_basename = basename($source_folder);
+
+# TODO: add flag to command line to perform this check, instead of always doing it
+my $li = `df $target_folder | sed -n '2p'`;
+if( not ($li =~ /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/) )
+{
+	print("Source folder is not mounted on network.\n");
+	exit(1);
+}
+
 print color("bold");
 print "**********************\n";
 print DateTime->now();
 print "\n";
 print color("reset");
-
-my $numargs = $#ARGV + 1;
-
-if( $numargs != 2 )
-{
-	print "Invalid number of arguments\n";
-	exit -1;
-}
-
-my $source_folder = $ARGV[0];
-my $target_folder = $ARGV[1];
-my $source_basename = basename($source_folder);
 
 if( false == (-d "$source_folder") ) {
 	print "Source folder is not a directory\n";
