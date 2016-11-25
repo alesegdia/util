@@ -1,4 +1,5 @@
 import argparse
+import struct
 
 def to_bytearray(s):
     b = bytearray()
@@ -21,6 +22,7 @@ entry the following format:
 
 
     with open(args.output_file_name, 'wb') as output_file:
+        output_file.write(struct.pack(">L", 0xDEADBEEF))
         for input_file_name in args.input_file_names:
             with open(input_file_name, 'rb') as input_file:
                 todump = input_file.read()
